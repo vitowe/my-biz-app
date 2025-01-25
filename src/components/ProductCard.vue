@@ -3,7 +3,7 @@
         <img :src="product.image" alt="Product Image" class="product-image" />
         <h2 class="product-title">{{ product.title }}</h2>
         <p class="product-description">{{ product.description }}</p>
-        <p class="product-price">{{ product.price | currency }}</p>
+        <p class="product-price">{{ formatCurrency(product.price) }}</p>
         <button @click="addToCart(product)" class="add-to-cart-button">Add to Cart</button>
     </div>
 </template>
@@ -18,6 +18,9 @@ export default {
         }
     },
     methods: {
+        formatCurrency(value) {
+            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value);
+        },
         addToCart(product) {
             this.$emit('add-to-cart', product);
         }

@@ -8,12 +8,12 @@
             <ul>
                 <li v-for="item in cartItems" :key="item.id">
                     <span>{{ item.name }}</span>
-                    <span>{{ item.price | currency }}</span>
+                    <span>{{ formatCurrency(item.price) }}</span>
                     <button @click="removeFromCart(item.id)">Remove</button>
                 </li>
             </ul>
             <div class="total">
-                <span>Total: {{ total | currency }}</span>
+                <span>Total: {{ formatCurrency(total) }}</span>
             </div>
             <button @click="checkout">Checkout</button>
         </div>
@@ -35,6 +35,7 @@ export default {
             return this.cartItems.reduce((sum, item) => sum + item.price, 0);
         },
     },
+  
     methods: {
         removeFromCart(id) {
             this.cartItems = this.cartItems.filter(item => item.id !== id);
@@ -42,9 +43,7 @@ export default {
         checkout() {
             alert('Proceeding to checkout');
         },
-    },
-    filters: {
-        currency(value) {
+        formatCurrency(value) {
             return `$${value.toFixed(2)}`;
         },
     },
